@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>欢迎进入系统</h2>
+<div id="name"></div>
+<div>
+<input type="button" value="list" id="list"/><div id="listText"></div>
+<input type="button" value="create" id="create"/><div id="createText"></div>
+<input type="button" value="delete" id="delete"/><div id="deleteText"></div>
+</div>
+<h4><a href="/rbac/logout">退出</a></h4>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+</body>
+
+<script type="text/javascript">
+	$(function(){
+		$.get("/rbac/index",function(data){
+			$("#name").text(data);
+		});
+	});
+
+	
+	$("#list").click(function(){
+		$.get("/rbac/list",function(data){
+			if (data == "403") {
+				$(location).attr("href","/rbac/view/403.html");
+			}else{
+				$("#listText").text(data);
+			}
+			
+		})
+	});
+	
+	$("#create").click(function(){
+		$.get("/rbac/user/create",function(data){
+			if (data == "403") {
+				$(location).attr("href","/rbac/view/403.html");
+			}else{
+				$("#createText").text(data);
+			}
+			
+		})
+	});
+	
+	$("#delete").click(function(){
+		$.get("/rbac/user/delete",function(data){
+			if (data == "403") {
+				$(location).attr("href","/rbac/view/403.html");
+			}
+			$("#deleteText").text(data);
+		})
+	});
+	
+</script>
+
+</html>
